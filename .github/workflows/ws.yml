@@ -4,14 +4,12 @@ on:
     branches:
       - main
 jobs:
-  my-job:
+  deploy:
     runs-on: ubuntu-latest
     steps:
-    - name: Print a greeting
-      env:
-        MY_VAR: Hi 
-        FIRST_NAME: MIN
-        MIDDLE_NAME: JIAN
-        LAST_NAME: REN
-      run: |
-        echo $MY_VAR $FIRST_NAME $MIDDLE_NAME $LAST_NAME.
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+        with:
+          python-version: 3.x
+      - run: pip install mkdocs-material
+      - run: mkdocs gh-deploy --force
